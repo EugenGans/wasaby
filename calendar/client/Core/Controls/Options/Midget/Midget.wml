@@ -1,0 +1,51 @@
+<div class="wtm-OptionsMidget__mainArea">
+    <div class="ws-flexbox ws-flex-row wtm-CalendarOptions__mainOptsItem">
+        <Controls.Input.Dropdown
+                attr:class="wtm-CalendarOptions__gridType"
+                bind:selectedKeys="_gridType"
+                keyProperty="key"
+                displayProperty="caption"
+                contentTemplate="{{_contentGridType}}"
+                source="{{_createMemory(_typesItems)}}"/>
+        <Controls.Label
+                attr:style="display: {{ _gridType[0] === 'interval' ? 'block' : 'none' }}"
+                caption="{[квант]}"/>
+        <Controls.Input.Dropdown
+                attr:style="display: {{ _gridType[0] === 'interval' ? 'block' : 'none' }}"
+                bind:selectedKeys="_quantum"
+                keyProperty="key"
+                displayProperty="title"
+                source="{{_createMemory(_quantumItems)}}"/>
+        <Controls.Label
+                attr:style="display: {{ _gridType[0] === 'beforeAfter' ? 'block' : 'none' }}"
+                caption="{[рубеж]}"/>
+        <Controls.Input.Dropdown
+                attr:style="display: {{ _gridType[0] === 'beforeAfter' ? 'block' : 'none' }}"
+                bind:selectedKeys="_border"
+                keyProperty="key"
+                displayProperty="title"
+                source="{{_createMemory(_borderItems)}}"/>
+
+    </div>
+
+    <div class="wtm-OptionsMidget__grid ws-flexbox ws-flex-row">
+        <div if="{{ _gridType === 'interval'}}" class="wtm-OptionsMidget__time"></div>
+        <ws:for data="day in _days">
+            <div class="{{'wtm-OptionsMidget__column ws-flexbox ws-flex-column ' + (day.isOff ? 'wtm-OptionsMidget__column_dayOff')}}">
+                <div class="wtm-OptionsMidget__headerName">{{day.name}}</div>
+                <div class="wtm-OptionsMidget__headerColor"></div>
+                <div class="{{'wtm-OptionsMidget__oneDay ws-flex-grow-1 ws-flex-grow-1 ws-flexbox ws-flex-column ' + day.align}}">
+                    <ws:for data="ev in day.events">
+                        <div class="wtm-OptionsMidget__event" style="height:{{ev}}px;"></div>
+                    </ws:for>
+                    <div if="{{_gridType !== 'interval'}}" class="{{_gridType === 'beforeAfter' ? 'wtm-OptionsMidget__halfDay'}} ws-flexbox ws-flex-column">
+                        <ws:for data="ev in day.events">
+                            <div class="wtm-OptionsMidget__event" style="height:{{ev}}px;"></div>
+                        </ws:for>
+                    </div>
+                </div>
+            </div>
+        </ws:for>
+    </div>
+</div>
+
