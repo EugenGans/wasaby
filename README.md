@@ -1,3 +1,3 @@
 # wasaby
-code samples for Wasaby frameWork
+code samples for Wasaby Wasaby Framework
 https://wasaby.dev/
