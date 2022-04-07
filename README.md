@@ -1,2 +1,3 @@
 # wasaby
-configs and setting for Saby projects
+code samples for Wasaby frameWork
+https://wasaby.dev/
