@@ -1,0 +1,39 @@
+<ws:if data="{{ value.isCurrentMonth || mode === 'extended' }}">
+    <div class="wtm-CalendarMonth__day wtm-CalendarMonth__day_type-{{ value.extData.dayScheduleType || (value.weekend ? 'restday' : 'workday') }}
+                wtm-CalendarMonth__day_event-{{ value.extData.fullDayEvent }}
+                {{ value.extData.isFestDay ? 'wtm-CalendarMonth__day_type-festday' : '' }}
+                {{ value.extData.fullDayEvent && highlightDocumentId == value.extData.fullDayWorkId ? 'wtm-CalendarMonth__day_event-' + value.extData.fullDayEvent + '-hovered' : '' }}
+                wtm-CalendarMonth__day_marker-{{ value.extData.fullDayEvent ||
+                    value.extData.markerEventType ||
+                    value.extData.dayScheduleType ||
+                    (value.weekend ? 'restday' : 'workday') }}"
+         on:click="_onContentClick(value.date)"
+         name="dayContent-{{ value.id }}"
+         data-event-blocks-count="{{ value.extData.eventBlocksCount }}"
+         data-date="{{ value.date }}">
+        <ws:if data="{{value.extData.moreButtonCounter}}">
+            <div class="wtm-CalendarMonth__day-more-shadow">
+                <div class="wtm-CalendarMonth__day-more"
+                     on:click="_moreClick(value.date)">
+                    {[Ещё]} {{ value.extData.moreButtonCounter }}
+                </div>
+            </div>
+        </ws:if>
+        <ws:partial
+            template="wml!CoreUserCalendar/_Month/Templates/DayHeader"
+            value="{{ value }}"
+        />
+        <ws:for data="event in value.extData.dayEvents">
+            <ws:partial
+                template="wml!CoreUserCalendar/_Month/Templates/Event"
+                event="{{ event }}"
+                fullDayEventLength="{{ value.extData.fullDayEventLength }}"
+                fullDayEventStacktitleShift="{{ value.extData.fullDayEventStacktitleShift }}"
+                fullDayEventStackWidth="{{ value.extData.fullDayEventStackWidth }}"
+            />
+        </ws:for>
+    </div>
+</ws:if>
+<ws:else>
+    <div class="wtm-CalendarMonth__day wtm-CalendarMonth__day-empty"></div>
+</ws:else>

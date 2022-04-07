@@ -1,0 +1,34 @@
+<div>
+    <ws:if data="{{ _options.pickerMode === 'days' }}">
+        <Controls.dateRange:Selector
+            on:rangeChanged="_onRangeChanged()"
+            vdomDialog="{{true}}"
+            startValue="{{ _options.startDate }}"
+            endValue="{{ _options.endDate }}"
+            selectionType="quantum"
+            ranges="{{ _ranges }}"
+            captionFormatter="{{ _weekCaptionFormatter }}"
+            fontColorStyle="primary"
+            fontSize="3xl"
+            underline="none"
+        />
+    </ws:if>
+    <ws:else>
+        <Controls.dateRange:Selector
+            on:rangeChanged="_onRangeChanged()"
+            popupClassName="{{ 'wtm-DatePicker__popup_' + _options.pickerMode }}"
+            vdomDialog="{{true}}"
+            datePopupType="shortDatePicker"
+            startValue="{{ _options.startDate }}"
+            endValue="{{ _options.endDate }}"
+            chooseHalfyears="{{false}}"
+            chooseQuarters="{{false}}"
+            chooseMonths="{{ _options.pickerMode !== 'year' }}"
+            captionFormatter="{{ _liteCaptionFormatter }}"
+            fontColorStyle="primary"
+            fontSize="3xl"
+            underline="none"
+            pickerMode="{{ _options.pickerMode }}"
+        />
+    </ws:else>
+</div>

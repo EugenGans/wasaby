@@ -1,0 +1,9 @@
+<ws:if data="{{_tzDiffHours}}">
+    <div attr:class="WTM-Calendar__TzIndicator"
+         title="{[Разница с Вашим временем составляет]}: {{_tzDiffHours}}{[ч]}.">
+        {{_tzName}}, {[Разница]}: {{_tzDiffHours}}
+    </div>
+</ws:if>
+<ws:else>
+    <invisible-node/>
+</ws:else>

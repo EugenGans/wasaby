@@ -1,0 +1,6 @@
+<div class="wtm-CalendarMonth__day-header
+                    {{ value.today ? 'wtm-CalendarMonth__day-header--current' : '' }}
+                    {{ value.today && value.day < 10 ? 'wtm-CalendarMonth__day-header--short' : '' }}"
+     on:click="_onDateClick(value.date)">
+{{ value.day }}
+</div>

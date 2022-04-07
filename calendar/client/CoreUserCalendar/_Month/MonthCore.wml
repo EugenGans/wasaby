@@ -1,0 +1,55 @@
+<Controls.dataSource:error.Container name="errorContainer" viewConfig="{{_errorViewConfig}}">
+    <div class="wtm-CalendarMonth">
+        <div class="wtm-CalendarMonth__weekDay-container"
+             data-is-short="{{ false }}">
+            <ws:for data="weekDay in _weekDays">
+                <div class="wtm-CalendarMonth__weekDay-item">{{ rk(weekDay) }}</div>
+            </ws:for>
+        </div>
+        <Controls.dragnDrop:Container
+            name="dragContainer"
+            on:dragEnd="_dragEnd()">
+            <ws:draggingTemplate>
+                <div class="wtm-CalendarMonth_draggingTemplate">
+                    <div class="wtm-CalendarMonth__day-event {{ draggingTemplate.entity._options.classes }}"
+                         style="width: {{ draggingTemplate.entity._options.width }}"
+                         start-time="{{draggingTemplate.entity._options.startTime}}">
+                        {{ draggingTemplate.entity._options.text || '' }}
+                    </div>
+                    <div class="wtm-CalendarMonth__day_dnd-hint {{ draggingTemplate.entity._options.classes }}"
+                         data-drag-type="{[Переместить]}"></div>
+                </div>
+            </ws:draggingTemplate>
+            <ws:content>
+                <Controls.calendar:MonthList
+                    name="MonthList"
+                    position="{{ _displayedMonth }}"
+                    on:positionChanged="_monthPositionChangedHandler()"
+                    viewMode="month"
+                    newMode="{{true}}"
+                    source="{{ _monthSource }}"
+                    bottomShadowVisibility="hidden"
+                    virtualPageSize="{{1}}">
+                    <ws:monthHeaderTemplate>
+                        <div class="wtm-CalendarMonth__month-head">
+                            <ws:partial
+                                template="wml!CoreUserCalendar/_Month/Templates/Header"
+                                formatter="{{ _monthTitleFormatter }}"/>
+                        </div>
+                    </ws:monthHeaderTemplate>
+                    <ws:monthTemplate>
+                        <ws:partial
+                            attr:class="wtm-CalendarMonth__customMonth"
+                            monthWeekHeight="{{_monthWeekHeight}}"
+                            position="{{_displayedMonth}}"
+                            formatter="{{ _monthTitleFormatter }}"
+                            highlightDocumentId="{{ _highlightDocumentId }}"
+                            template="wml!CoreUserCalendar/_Month/Templates/Month"/>
+                    </ws:monthTemplate>
+                </Controls.calendar:MonthList>
+            </ws:content>
+        </Controls.dragnDrop:Container>
+        <CoreUserCalendar.controls:CalendarListMonitor
+                on:listChanged="_updateMonth()"/>
+    </div>
+</Controls.dataSource:error.Container>

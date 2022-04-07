@@ -1,0 +1,462 @@
+@import "../../WorkTimeManagementBase/Design/_variables";
+
+@stroke-bg: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAwAAAAMCAYAAABWdVznAAABhWlDQ1BJQ0MgcHJvZmlsZQAAKJF9kT1Iw0AcxV9TpVoqFSwi4pChOlkQFXGUKhbBQmkrtOpgcukXNGlIUlwcBdeCgx+LVQcXZ10dXAVB8APExdVJ0UVK/F9TaBHjwXE/3t173L0DhHqZqWbXBKBqlpGMRcVMdlX0vcKPQfQiiH6JmXo8tZiG6/i6h4evdxGe5X7uz9Gn5EwGeETiOaYbFvEG8cympXPeJw6xoqQQnxOPG3RB4keuyw6/cS40WeCZISOdnCcOEYuFDpY7mBUNlXiaOKyoGuULGYcVzluc1XKVte7JXxjIaSsprtMcQQxLiCMBETKqKKEMCxFaNVJMJGk/6uIfbvoT5JLJVQIjxwIqUCE1/eB/8LtbMz816SQFokD3i21/jAK+XaBRs+3vY9tunADeZ+BKa/srdWD2k/RaWwsfAcFt4OK6rcl7wOUOMPSkS4bUlLw0hXweeD+jb8oCA7eAf83prbWP0wcgTV0t3wAHh8BYgbLXXd7d09nbv2da/f0AO+dykTrU698AAAAGYktHRAD/AP8A/6C9p5MAAAAJcEhZcwAALiMAAC4jAXilP3YAAAAHdElNRQfjChYJEyLYmOiXAAAAGXRFWHRDb21tZW50AENyZWF0ZWQgd2l0aCBHSU1QV4EOFwAAAldJREFUKBUBTAKz/QH56+YABgIHAAAAAAAAAAAA3fXW/+v55wAyEDwBBgIHAAAAAAAAAAAA2/XV/+v55wACBgIHAAAAAAAAAAAA3fXW/+v55wAyEDwBBgIHAAAAAAAAAAAA2/XV/+v55wA0ED0BAgAAAAAAAAAA3fXW/+v55wAyEDwBBgIHAAAAAAAAAAAA2/XV/+v55wA0ED0BBgIHAAIAAAAA3fXW/+v55wAyEDwBBgIHAAAAAAAAAAAA2/XV/+v55wA0ED0BBgIHAAAAAAAC3fXW/+v55wAyEDwBBgIHAAAAAAAAAAAA2/XV/+v55wA0ED0BBgIHAAAAAAAAAAAAAuv55wAyEDwBBgIHAAAAAAAAAAAA2/XV/+v55wA0ED0BBgIHAAAAAAAAAAAA3PXW/wH56+YABgIHAAAAAAAAAAAA2/XV/+v55wA0ED0BBgIHAAAAAAAAAAAA3PXW/+v55wACBgIHAAAAAAAAAAAA2/XV/+v55wA0ED0BBgIHAAAAAAAAAAAA3PXW/+v55wAzEDwBAgAAAAAAAAAA2/XV/+v55wA0ED0BBgIHAAAAAAAAAAAA3PXW/+v55wAzEDwBBgIHAAIAAAAA2/XV/+v55wA0ED0BBgIHAAAAAAAAAAAA3PXW/+v55wAzEDwBBgIHAAAAAAAC2/XV/+v55wA0ED0BBgIHAAAAAAAAAAAA3PXW/+v55wAzEDwBBgIHAAAAAAAAAAAAAuv55wA0ED0BBgIHAAAAAAAAAAAA3PXW/+v55wAzEDwBBgIHAAAAAAAAAAAA3PXV/xDLrKlD0MEEAAAAAElFTkSuQmCC');
+
+.wtm-CalendarMonth {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+
+  &_draggingTemplate > .wtm-CalendarMonth__day-event {
+    max-width: 200px !important;
+    position: absolute !important;
+    font-size: 0.75rem;
+    box-shadow: 0 0 12px #707070;
+  }
+
+  &__weekDay {
+    &-item {
+      text-align: center;
+      font-size: 15px;
+      line-height: 32px;
+      height: 32px;
+      color: var(--secondary_text-color);
+      background: inherit;
+
+      &:nth-child(n+6) {
+        color: @color-sbis-primary;
+      }
+    }
+
+    &-container {
+      display: flex;
+      justify-content: space-around;
+      z-index: 10;
+      width: 100%;
+      min-height: 32px;
+    }
+  }
+
+  &__month {
+    min-height: calc(100% - 28px);
+    height: calc(100vh - 145px);
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+
+    &-head {
+      z-index: 1;
+      width: 100%;
+      height: 42px;
+      line-height: 45px;
+      font-size: 18px;
+      color: var(--primary_text-color);
+      text-align: left;
+      font-weight: 700;
+      padding-left: 12px;
+
+      &_title {
+        cursor: pointer;
+
+        .ws-is-hover &:hover {
+          color: var(--primary_hover_text-color);
+        }
+      }
+    }
+  }
+
+  &__day {
+    background: var(--background-color);
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    box-shadow: 0 0 0 1px #d4d4d4;
+    margin: 0;
+    box-sizing: border-box;
+    color: var(--text-color);
+    font-size: 0.75rem;
+    line-height: 0.9375rem;
+
+    &-empty {
+      box-shadow: none;
+      background: transparent;
+    }
+
+    &_dnd-hint {
+      position: absolute;
+      bottom: -1.3em;
+      left: 2px;
+
+      &_doubleLine {
+        bottom: 1em;
+      }
+
+      &::after {
+        position: absolute;
+        display: inline-block;
+        left: -1px;
+        padding: 3px 6px;
+        line-height: 1;
+        top: calc(~"100% + 2px");
+        font-size: 11px;
+        color: #505050;
+        content: attr(data-drag-type);
+        border-radius: 2px;
+        background: inherit;
+      }
+    }
+
+    &_type-workday {
+      /* По макету фон рабочего дня - белый, Это будет дефолтной заливкой (на my.sbis например) */
+      background: var(--background-color);
+      border-top: 3px solid @marker-color-work;
+
+      .ws-is-hover &:hover {
+        background: @hover-color-work;
+      }
+    }
+
+    &_type-unEmployed {
+      background: var(--background-color);
+      border-top: 3px solid @marker-color-unEmployed;
+    }
+
+    &_type-restday {
+      background: @color-holiday;
+      border-top: 3px solid @marker-color-holiday;
+
+      .ws-is-hover &:hover {
+        background: @hover-color-holiday;
+      }
+    }
+
+    &_event-trip {
+      background: @color-businessTrip;
+      border-top: 3px solid @marker-color-businessTrip;
+
+      .ws-is-hover &-hovered,
+      .ws-is-hover &:hover {
+        background: @hover-color-businessTrip;
+      }
+    }
+
+    &_event-hospital {
+      background: @color-sick;
+      border-top: 3px solid @marker-color-sick;
+
+      .ws-is-hover &-hovered,
+      .ws-is-hover &:hover {
+        background: @hover-color-sick;
+      }
+    }
+
+    &_event-vacation {
+      background: @color-vacation;
+      border-top: 3px solid @marker-color-vacation;
+
+      .ws-is-hover &-hovered,
+      .ws-is-hover &:hover {
+        background: @hover-color-vacation;
+      }
+    }
+
+    &_event-planVacation1 {
+      background: @color-planVacation;
+      border-top: 3px solid @marker-color-planVacation;
+
+      .ws-is-hover &-hovered,
+      .ws-is-hover &:hover {
+        background: @hover-color-planVacation;
+      }
+    }
+
+    &_event-planVacation2 {
+      background: @color-planVacation-deleted;
+      border-top: 3px solid @marker-color-planVacation-deleted;
+
+      .ws-is-hover &-hovered,
+      .ws-is-hover &:hover {
+        background: @hover-color-planVacation-deleted;
+      }
+    }
+
+    &_event-planVacation3 {
+      background: @color-planVacation-confirmation;
+      border-top: 3px solid @marker-color-planVacation-confirmation;
+
+      .ws-is-hover &-hovered,
+      .ws-is-hover &:hover {
+        background: @hover-color-planVacation-confirmation;
+      }
+    }
+
+    &_event-absence {
+      background: @color-absenteeism;
+      border-top: 3px solid @marker-color-absenteeism;
+
+      .ws-is-hover &-hovered,
+      .ws-is-hover &:hover {
+        background: @hover-color-absenteeism;
+      }
+    }
+
+    &_event-leave {
+      background: @color-timeOff;
+      border-top: 3px solid @marker-color-timeOff;
+
+      .ws-is-hover &-hovered,
+      .ws-is-hover &:hover {
+        background: @hover-color-timeOff;
+      }
+    }
+
+    &_event-stay {
+      background: @color-outage;
+      border-top: 3px solid @marker-color-outage;
+
+      .ws-is-hover &-hovered,
+      .ws-is-hover &:hover {
+        background: @hover-color-outage;
+      }
+    }
+
+    /*Отпуск в праздничный день*/
+    &_type-festday&_event-vacation,
+    &_type-festday&_event-planVacation1,
+    &_type-festday&_event-planVacation2,
+    &_type-festday&_event-planVacation3 {
+      background: @color-holiday @stroke-bg repeat;
+
+      .ws-is-hover &-hovered,
+      .ws-is-hover &:hover {
+        background: @hover-color-holiday @stroke-bg repeat;
+      }
+    }
+
+    &_marker {
+      &-absence {
+        border-top: 3px solid @marker-color-absenteeism;
+      }
+
+      &-leave {
+        border-top: 3px solid @marker-color-timeOff;
+      }
+
+      &-stay {
+        border-top: 3px solid @marker-color-outage;
+      }
+    }
+
+    &-event_document {
+      &-fullDay {
+        visibility: visible;
+        text-align: left;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        position: static;
+        width: inherit;
+        left: inherit;
+        pointer-events: none;
+        white-space: nowrap;
+        box-sizing: border-box;
+        padding-right: 5px;
+      }
+
+      &-stacked {
+        padding: 0 0.5em 0 9px;
+        text-align: center;
+        position: absolute;
+      }
+
+      &-text {
+        pointer-events: all;
+
+        .ws-is-hover &:hover {
+          text-decoration: underline;
+        }
+      }
+    }
+
+    &-header {
+      flex: none;
+      font-style: normal;
+      font-size: 15px;
+      margin: 0 0 1px 8px;
+      color: #DB7777;
+
+      text-align: left;
+      width: 22px;
+      height: 22px;
+      line-height: 22px;
+      cursor: pointer;
+
+      .ws-is-hover &:hover {
+        text-decoration: underline;
+      }
+
+      &--current {
+        color: var(--contrast_text-color);
+        text-align: center;
+        background: @color-sbis-primary;
+        border-radius: 11px;
+        position: relative;
+        left: -3px;
+      }
+    }
+
+    &-event {
+      width: calc(100% - 0.5rem);
+      min-height: 1.125rem;
+      max-height: 2rem;
+      max-width: 100%;
+      padding: 1px 5px 1px 7px;
+      cursor: pointer;
+      border-left-style: solid;
+      margin-bottom: 2px;
+      position: static;
+      text-align: left;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      box-sizing: border-box;
+      overflow-wrap: normal;
+
+      &__notInWorkflow {
+        color: var(--unaccented_text-color);
+      }
+
+      &_type {
+        color: var(--secondary_text-color);
+
+        &__notInWorkflow {
+          color: var(--label_text-color);
+        }
+
+        .ws-is-hover &:hover {
+          text-decoration: underline;
+        }
+      }
+
+      &:not(.wtm-CalendarMonth__fullDay-event) {
+        border-left-width: 2px;
+        position: relative;
+        text-align: left;
+
+        &:before {
+          display: inline;
+          content: attr(start-time) "\00a0 ";
+        }
+      }
+
+      &.WTM-Common--timeOff {
+        background-color: @color-timeOff;
+        border-color: @marker-color-timeOff;
+
+        .ws-is-hover &:hover {
+          background-color: @hover-color-timeOff;
+        }
+      }
+
+      &.WTM-Common--absenteeism {
+        background-color: @color-absenteeism;
+        border-color: @marker-color-absenteeism;
+
+        .ws-is-hover &:hover {
+          background-color: @hover-color-absenteeism;
+        }
+      }
+
+      &.WTM-Common--outage {
+        background-color: @color-outage;
+        border-color: @marker-color-outage;
+
+        .ws-is-hover &:hover {
+          background-color: @hover-color-outage;
+        }
+      }
+    }
+
+    &-info {
+      overflow: hidden;
+      position: absolute;
+      right: 0;
+      bottom: 2px;
+      padding: 0 3px;
+      font-size: 12px;
+      display: flex;
+      align-items: center;
+      background-color: inherit;
+    }
+
+    &-periodicEventMarker {
+      color: #619ee4;
+    }
+
+    &-tz {
+      color: var(--unaccented_text-color);
+      margin-right: 2px;
+    }
+
+    &-more {
+      position: absolute;
+      bottom: 1px;
+      right: 8px;
+      height: 18px;
+      width: 63px;
+      color: var(--link_text-color);
+      cursor: pointer;
+      font-size: 12px;
+      background-color: var(--background-color);
+      border-radius: 10px 10px 0 0;
+      padding: 2px 0;
+
+      .ws-is-hover &:hover {
+        text-decoration: underline;
+      }
+    }
+
+    &-more-shadow {
+      display: block;
+      width: 100%;
+      background: linear-gradient(0deg, rgba(255, 255, 255, 1), rgba(255, 255, 255, 0));
+      height: 8px;
+      margin-bottom: -8px;
+      position: relative;
+      z-index: 2;
+      top: calc(100% - 8px);
+    }
+  }
+
+  &__fullDay-event {
+    visibility: hidden;
+    text-align: center;
+    white-space: nowrap;
+    padding-right: 0.5rem;
+  }
+
+  &__joinedCalendars {
+    position: absolute;
+    right: 0;
+    top: 0;
+    display: flex;
+    flex-direction: row;
+
+    &--item {
+      width: 4px;
+      height: 4px;
+      margin-left: 1px;
+    }
+  }
+
+  &__emptyMonth {
+    min-height: calc(100vh - 145px);
+    border-top: solid 1px #cecece;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    &_header {
+      font-size: 4em;
+    }
+  }
+}

@@ -1,0 +1,10 @@
+<Controls.buttons:Button
+        name="ButtonToday"
+        icon="icon-Home3"
+        iconStyle="secondary"
+        buttonStyle="info"
+        fontColorStyle="unaccented"
+        viewMode="link"
+        iconSize="s"
+        on:click="_onClick()"
+/>

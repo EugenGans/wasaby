@@ -1,0 +1,63 @@
+@import "../../WorkTimeManagementBase/Design/_variables.less";
+
+.WTM-StatsBar {
+  display: flex;
+  justify-content: start;
+  align-items: center;
+
+  &_item {
+    display: flex;
+    align-items: center;
+
+    &_button {
+      width: var(--inline_height_mt);
+      height: var(--inline_height_mt);
+      border-radius: var(--inline_height_mt);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-left: var(--offset_xs);
+
+      &:hover {
+        background-color: var(--unaccented_hover_same_background-color);
+      }
+    }
+
+    &_icon {
+      &_color {
+        &_vacation {
+          color: @marker-color-vacation;
+        }
+
+        &_hospital {
+          color: @marker-color-sick;
+        }
+
+        &_trip {
+          color: @marker-color-businessTrip;
+        }
+
+        &_absence {
+          color: @marker-color-absenteeism;
+        }
+
+        &_stay {
+          color: @marker-color-outage;
+        }
+
+        &_leave {
+          color: @marker-color-timeOff;
+        }
+      }
+    }
+
+    &_caption {
+      display: none;
+      margin-right: var(--offset_xs);
+
+      &-expanded {
+        display: flex;
+      }
+    }
+  }
+}

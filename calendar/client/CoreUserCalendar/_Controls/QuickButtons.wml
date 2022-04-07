@@ -1,0 +1,30 @@
+<ws:if data="{{ _hasButtons }}">
+    <div class="WTM-QuickButtons">
+        <ws:for data="buttonConfig in _buttonsConfig">
+            <Controls.buttons:Button
+                name="{{buttonConfig.name}}"
+                fontSize="m"
+                viewMode="button"
+                icon="{{buttonConfig.iconName}}"
+                iconStyle="{{buttonConfig.iconStyle}}"
+                iconSize="s"
+                inlineHeight="m"
+                buttonStyle="pale"
+                contrastBackground="{{true}}"
+                captionPosition="left"
+                tootlip="{{rk(buttonConfig.tooltip)}}"
+                caption="{{rk(buttonConfig.caption)}}"
+                attr:class="WTM-QuickButtons__Button {{buttonConfig.class}}"
+                on:click="_openDayInfo(buttonConfig)"/>
+        </ws:for>
+        <Controls.Container.Async
+            templateName="WorkTimeManagementLite/dayInfoOpener:Opener">
+            <ws:partial template="{{ content.resolvedTemplate }}"
+                        name="dayInfoOpener"
+                        mode="sticky"/>
+        </Controls.Container.Async>
+    </div>
+</ws:if>
+<ws:else>
+    <invisible-node/>
+</ws:else>

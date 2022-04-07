@@ -1,0 +1,386 @@
+.wtm-CalendarMonth {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+.wtm-CalendarMonth_draggingTemplate > .wtm-CalendarMonth__day-event {
+  max-width: 200px !important;
+  position: absolute !important;
+  font-size: 0.75rem;
+  box-shadow: 0 0 12px #707070;
+}
+.wtm-CalendarMonth__weekDay-item {
+  text-align: center;
+  font-size: 15px;
+  line-height: 32px;
+  height: 32px;
+  color: var(--secondary_text-color);
+  background: inherit;
+}
+.wtm-CalendarMonth__weekDay-item:nth-child(n+6) {
+  color: #D94700;
+}
+.wtm-CalendarMonth__weekDay-container {
+  display: flex;
+  justify-content: space-around;
+  z-index: 10;
+  width: 100%;
+  min-height: 32px;
+}
+.wtm-CalendarMonth__month {
+  min-height: calc(100% - 28px);
+  height: calc(100vh - 145px);
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+.wtm-CalendarMonth__month-head {
+  z-index: 1;
+  width: 100%;
+  height: 42px;
+  line-height: 45px;
+  font-size: 18px;
+  color: var(--primary_text-color);
+  text-align: left;
+  font-weight: 700;
+  padding-left: 12px;
+}
+.wtm-CalendarMonth__month-head_title {
+  cursor: pointer;
+}
+.ws-is-hover .wtm-CalendarMonth__month-head_title:hover {
+  color: var(--primary_hover_text-color);
+}
+.wtm-CalendarMonth__day {
+  background: var(--background-color);
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  box-shadow: 0 0 0 1px #d4d4d4;
+  margin: 0;
+  box-sizing: border-box;
+  color: var(--text-color);
+  font-size: 0.75rem;
+  line-height: 0.9375rem;
+  /*Отпуск в праздничный день*/
+}
+.wtm-CalendarMonth__day-empty {
+  box-shadow: none;
+  background: transparent;
+}
+.wtm-CalendarMonth__day_dnd-hint {
+  position: absolute;
+  bottom: -1.3em;
+  left: 2px;
+}
+.wtm-CalendarMonth__day_dnd-hint_doubleLine {
+  bottom: 1em;
+}
+.wtm-CalendarMonth__day_dnd-hint::after {
+  position: absolute;
+  display: inline-block;
+  left: -1px;
+  padding: 3px 6px;
+  line-height: 1;
+  top: calc(100% + 2px);
+  font-size: 11px;
+  color: #505050;
+  content: attr(data-drag-type);
+  border-radius: 2px;
+  background: inherit;
+}
+.wtm-CalendarMonth__day_type-workday {
+  /* По макету фон рабочего дня - белый, Это будет дефолтной заливкой (на my.sbis например) */
+  background: var(--background-color);
+  border-top: 3px solid #5E9CE4;
+}
+.ws-is-hover .wtm-CalendarMonth__day_type-workday:hover {
+  background: #F6FAFE;
+}
+.wtm-CalendarMonth__day_type-unEmployed {
+  background: var(--background-color);
+  border-top: 3px solid #CCC;
+}
+.wtm-CalendarMonth__day_type-restday {
+  background: #FFF5F5;
+  border-top: 3px solid #FFA8A8;
+}
+.ws-is-hover .wtm-CalendarMonth__day_type-restday:hover {
+  background: #FFFAFA;
+}
+.wtm-CalendarMonth__day_event-trip {
+  background: #F2E7E4;
+  border-top: 3px solid #984128;
+}
+.ws-is-hover .wtm-CalendarMonth__day_event-trip-hovered,
+.ws-is-hover .wtm-CalendarMonth__day_event-trip:hover {
+  background: hsl(12.85714286, 35%, 95.15686275%);
+}
+.wtm-CalendarMonth__day_event-hospital {
+  background: #E7E8FE;
+  border-top: 3px solid #555BB2;
+}
+.ws-is-hover .wtm-CalendarMonth__day_event-hospital-hovered,
+.ws-is-hover .wtm-CalendarMonth__day_event-hospital:hover {
+  background: hsl(237.39130435, 92%, 98.09803922%);
+}
+.wtm-CalendarMonth__day_event-vacation {
+  background: #DFF2D5;
+  border-top: 3px solid #328502;
+}
+.ws-is-hover .wtm-CalendarMonth__day_event-vacation-hovered,
+.ws-is-hover .wtm-CalendarMonth__day_event-vacation:hover {
+  background: hsl(99.31034483, 52.72727273%, 92.21568627%);
+}
+.wtm-CalendarMonth__day_event-planVacation1 {
+  background: #EEF7E9;
+  border-top: 3px solid #328502;
+}
+.ws-is-hover .wtm-CalendarMonth__day_event-planVacation1-hovered,
+.ws-is-hover .wtm-CalendarMonth__day_event-planVacation1:hover {
+  background: hsl(98.57142857, 46.66666667%, 97.11764706%);
+}
+.wtm-CalendarMonth__day_event-planVacation2 {
+  background: #F0F0F0;
+  border-top: 3px solid #9E9E9E;
+}
+.ws-is-hover .wtm-CalendarMonth__day_event-planVacation2-hovered,
+.ws-is-hover .wtm-CalendarMonth__day_event-planVacation2:hover {
+  background: hsl(0, 0%, 97.11764706%);
+}
+.wtm-CalendarMonth__day_event-planVacation3 {
+  background: #FFF0CE;
+  border-top: 3px solid #FFBF2B;
+}
+.ws-is-hover .wtm-CalendarMonth__day_event-planVacation3-hovered,
+.ws-is-hover .wtm-CalendarMonth__day_event-planVacation3:hover {
+  background: hsl(41.63265306, 100%, 93.39215686%);
+}
+.wtm-CalendarMonth__day_event-absence {
+  background: #FDE8ED;
+  border-top: 3px solid #C93233;
+}
+.ws-is-hover .wtm-CalendarMonth__day_event-absence-hovered,
+.ws-is-hover .wtm-CalendarMonth__day_event-absence:hover {
+  background: hsl(345.71428571, 84%, 97.09803922%);
+}
+.wtm-CalendarMonth__day_event-leave {
+  background: #F7E7FF;
+  border-top: 3px solid #763DA4;
+}
+.ws-is-hover .wtm-CalendarMonth__day_event-leave-hovered,
+.ws-is-hover .wtm-CalendarMonth__day_event-leave:hover {
+  background: hsl(280, 100%, 97.29411765%);
+}
+.wtm-CalendarMonth__day_event-outage {
+  background: #FEF2E6;
+  border-top: 3px solid #D27C27;
+}
+.ws-is-hover .wtm-CalendarMonth__day_event-outage-hovered,
+.ws-is-hover .wtm-CalendarMonth__day_event-outage:hover {
+  background: hsl(30, 92.30769231%, 96.90196078%);
+}
+.wtm-CalendarMonth__day_type-festday.wtm-CalendarMonth__day_event-vacation,
+.wtm-CalendarMonth__day_type-festday.wtm-CalendarMonth__day_event-planVacation1,
+.wtm-CalendarMonth__day_type-festday.wtm-CalendarMonth__day_event-planVacation2,
+.wtm-CalendarMonth__day_type-festday.wtm-CalendarMonth__day_event-planVacation3 {
+  background: #FFF5F5 url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAwAAAAMCAYAAABWdVznAAABhWlDQ1BJQ0MgcHJvZmlsZQAAKJF9kT1Iw0AcxV9TpVoqFSwi4pChOlkQFXGUKhbBQmkrtOpgcukXNGlIUlwcBdeCgx+LVQcXZ10dXAVB8APExdVJ0UVK/F9TaBHjwXE/3t173L0DhHqZqWbXBKBqlpGMRcVMdlX0vcKPQfQiiH6JmXo8tZiG6/i6h4evdxGe5X7uz9Gn5EwGeETiOaYbFvEG8cympXPeJw6xoqQQnxOPG3RB4keuyw6/cS40WeCZISOdnCcOEYuFDpY7mBUNlXiaOKyoGuULGYcVzluc1XKVte7JXxjIaSsprtMcQQxLiCMBETKqKKEMCxFaNVJMJGk/6uIfbvoT5JLJVQIjxwIqUCE1/eB/8LtbMz816SQFokD3i21/jAK+XaBRs+3vY9tunADeZ+BKa/srdWD2k/RaWwsfAcFt4OK6rcl7wOUOMPSkS4bUlLw0hXweeD+jb8oCA7eAf83prbWP0wcgTV0t3wAHh8BYgbLXXd7d09nbv2da/f0AO+dykTrU698AAAAGYktHRAD/AP8A/6C9p5MAAAAJcEhZcwAALiMAAC4jAXilP3YAAAAHdElNRQfjChYJEyLYmOiXAAAAGXRFWHRDb21tZW50AENyZWF0ZWQgd2l0aCBHSU1QV4EOFwAAAldJREFUKBUBTAKz/QH56+YABgIHAAAAAAAAAAAA3fXW/+v55wAyEDwBBgIHAAAAAAAAAAAA2/XV/+v55wACBgIHAAAAAAAAAAAA3fXW/+v55wAyEDwBBgIHAAAAAAAAAAAA2/XV/+v55wA0ED0BAgAAAAAAAAAA3fXW/+v55wAyEDwBBgIHAAAAAAAAAAAA2/XV/+v55wA0ED0BBgIHAAIAAAAA3fXW/+v55wAyEDwBBgIHAAAAAAAAAAAA2/XV/+v55wA0ED0BBgIHAAAAAAAC3fXW/+v55wAyEDwBBgIHAAAAAAAAAAAA2/XV/+v55wA0ED0BBgIHAAAAAAAAAAAAAuv55wAyEDwBBgIHAAAAAAAAAAAA2/XV/+v55wA0ED0BBgIHAAAAAAAAAAAA3PXW/wH56+YABgIHAAAAAAAAAAAA2/XV/+v55wA0ED0BBgIHAAAAAAAAAAAA3PXW/+v55wACBgIHAAAAAAAAAAAA2/XV/+v55wA0ED0BBgIHAAAAAAAAAAAA3PXW/+v55wAzEDwBAgAAAAAAAAAA2/XV/+v55wA0ED0BBgIHAAAAAAAAAAAA3PXW/+v55wAzEDwBBgIHAAIAAAAA2/XV/+v55wA0ED0BBgIHAAAAAAAAAAAA3PXW/+v55wAzEDwBBgIHAAAAAAAC2/XV/+v55wA0ED0BBgIHAAAAAAAAAAAA3PXW/+v55wAzEDwBBgIHAAAAAAAAAAAAAuv55wA0ED0BBgIHAAAAAAAAAAAA3PXW/+v55wAzEDwBBgIHAAAAAAAAAAAA3PXV/xDLrKlD0MEEAAAAAElFTkSuQmCC') repeat;
+}
+.ws-is-hover .wtm-CalendarMonth__day_type-festday.wtm-CalendarMonth__day_event-vacation-hovered,
+.ws-is-hover .wtm-CalendarMonth__day_type-festday.wtm-CalendarMonth__day_event-planVacation1-hovered,
+.ws-is-hover .wtm-CalendarMonth__day_type-festday.wtm-CalendarMonth__day_event-planVacation2-hovered,
+.ws-is-hover .wtm-CalendarMonth__day_type-festday.wtm-CalendarMonth__day_event-planVacation3-hovered,
+.ws-is-hover .wtm-CalendarMonth__day_type-festday.wtm-CalendarMonth__day_event-vacation:hover,
+.ws-is-hover .wtm-CalendarMonth__day_type-festday.wtm-CalendarMonth__day_event-planVacation1:hover,
+.ws-is-hover .wtm-CalendarMonth__day_type-festday.wtm-CalendarMonth__day_event-planVacation2:hover,
+.ws-is-hover .wtm-CalendarMonth__day_type-festday.wtm-CalendarMonth__day_event-planVacation3:hover {
+  background: #FFFAFA url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAwAAAAMCAYAAABWdVznAAABhWlDQ1BJQ0MgcHJvZmlsZQAAKJF9kT1Iw0AcxV9TpVoqFSwi4pChOlkQFXGUKhbBQmkrtOpgcukXNGlIUlwcBdeCgx+LVQcXZ10dXAVB8APExdVJ0UVK/F9TaBHjwXE/3t173L0DhHqZqWbXBKBqlpGMRcVMdlX0vcKPQfQiiH6JmXo8tZiG6/i6h4evdxGe5X7uz9Gn5EwGeETiOaYbFvEG8cympXPeJw6xoqQQnxOPG3RB4keuyw6/cS40WeCZISOdnCcOEYuFDpY7mBUNlXiaOKyoGuULGYcVzluc1XKVte7JXxjIaSsprtMcQQxLiCMBETKqKKEMCxFaNVJMJGk/6uIfbvoT5JLJVQIjxwIqUCE1/eB/8LtbMz816SQFokD3i21/jAK+XaBRs+3vY9tunADeZ+BKa/srdWD2k/RaWwsfAcFt4OK6rcl7wOUOMPSkS4bUlLw0hXweeD+jb8oCA7eAf83prbWP0wcgTV0t3wAHh8BYgbLXXd7d09nbv2da/f0AO+dykTrU698AAAAGYktHRAD/AP8A/6C9p5MAAAAJcEhZcwAALiMAAC4jAXilP3YAAAAHdElNRQfjChYJEyLYmOiXAAAAGXRFWHRDb21tZW50AENyZWF0ZWQgd2l0aCBHSU1QV4EOFwAAAldJREFUKBUBTAKz/QH56+YABgIHAAAAAAAAAAAA3fXW/+v55wAyEDwBBgIHAAAAAAAAAAAA2/XV/+v55wACBgIHAAAAAAAAAAAA3fXW/+v55wAyEDwBBgIHAAAAAAAAAAAA2/XV/+v55wA0ED0BAgAAAAAAAAAA3fXW/+v55wAyEDwBBgIHAAAAAAAAAAAA2/XV/+v55wA0ED0BBgIHAAIAAAAA3fXW/+v55wAyEDwBBgIHAAAAAAAAAAAA2/XV/+v55wA0ED0BBgIHAAAAAAAC3fXW/+v55wAyEDwBBgIHAAAAAAAAAAAA2/XV/+v55wA0ED0BBgIHAAAAAAAAAAAAAuv55wAyEDwBBgIHAAAAAAAAAAAA2/XV/+v55wA0ED0BBgIHAAAAAAAAAAAA3PXW/wH56+YABgIHAAAAAAAAAAAA2/XV/+v55wA0ED0BBgIHAAAAAAAAAAAA3PXW/+v55wACBgIHAAAAAAAAAAAA2/XV/+v55wA0ED0BBgIHAAAAAAAAAAAA3PXW/+v55wAzEDwBAgAAAAAAAAAA2/XV/+v55wA0ED0BBgIHAAAAAAAAAAAA3PXW/+v55wAzEDwBBgIHAAIAAAAA2/XV/+v55wA0ED0BBgIHAAAAAAAAAAAA3PXW/+v55wAzEDwBBgIHAAAAAAAC2/XV/+v55wA0ED0BBgIHAAAAAAAAAAAA3PXW/+v55wAzEDwBBgIHAAAAAAAAAAAAAuv55wA0ED0BBgIHAAAAAAAAAAAA3PXW/+v55wAzEDwBBgIHAAAAAAAAAAAA3PXV/xDLrKlD0MEEAAAAAElFTkSuQmCC') repeat;
+}
+.wtm-CalendarMonth__day_marker-absence {
+  border-top: 3px solid #C93233;
+}
+.wtm-CalendarMonth__day_marker-leave {
+  border-top: 3px solid #763DA4;
+}
+.wtm-CalendarMonth__day_marker-stay {
+  border-top: 3px solid #D27C27;
+}
+.wtm-CalendarMonth__day-event_document-fullDay {
+  visibility: visible;
+  text-align: left;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  position: static;
+  width: inherit;
+  left: inherit;
+  pointer-events: none;
+  white-space: nowrap;
+  box-sizing: border-box;
+  padding-right: 5px;
+}
+.wtm-CalendarMonth__day-event_document-stacked {
+  padding: 0 0.5em 0 9px;
+  text-align: center;
+  position: absolute;
+}
+.wtm-CalendarMonth__day-event_document-text {
+  pointer-events: all;
+}
+.ws-is-hover .wtm-CalendarMonth__day-event_document-text:hover {
+  text-decoration: underline;
+}
+.wtm-CalendarMonth__day-header {
+  flex: none;
+  font-style: normal;
+  font-size: 15px;
+  margin: 0 0 1px 8px;
+  color: #DB7777;
+  text-align: left;
+  width: 22px;
+  height: 22px;
+  line-height: 22px;
+  cursor: pointer;
+}
+.ws-is-hover .wtm-CalendarMonth__day-header:hover {
+  text-decoration: underline;
+}
+.wtm-CalendarMonth__day-header--current {
+  color: var(--contrast_text-color);
+  text-align: center;
+  background: #D94700;
+  border-radius: 11px;
+  position: relative;
+  left: -3px;
+}
+.wtm-CalendarMonth__day-event {
+  width: calc(100% - 0.5rem);
+  min-height: 1.125rem;
+  max-height: 2rem;
+  max-width: 100%;
+  padding: 1px 5px 1px 7px;
+  cursor: pointer;
+  border-left-style: solid;
+  margin-bottom: 2px;
+  position: static;
+  text-align: left;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  box-sizing: border-box;
+  overflow-wrap: normal;
+}
+.wtm-CalendarMonth__day-event__notInWorkflow {
+  color: var(--unaccented_text-color);
+}
+.wtm-CalendarMonth__day-event_type {
+  color: var(--secondary_text-color);
+}
+.wtm-CalendarMonth__day-event_type__notInWorkflow {
+  color: var(--label_text-color);
+}
+.ws-is-hover .wtm-CalendarMonth__day-event_type:hover {
+  text-decoration: underline;
+}
+.wtm-CalendarMonth__day-event:not(.wtm-CalendarMonth__fullDay-event) {
+  border-left-width: 2px;
+  position: relative;
+  text-align: left;
+}
+.wtm-CalendarMonth__day-event:not(.wtm-CalendarMonth__fullDay-event):before {
+  display: inline;
+  content: attr(start-time) "\00a0 ";
+}
+.wtm-CalendarMonth__day-event.WTM-Common--timeOff {
+  background-color: #F7E7FF;
+  border-color: #763DA4;
+}
+.ws-is-hover .wtm-CalendarMonth__day-event.WTM-Common--timeOff:hover {
+  background-color: hsl(280, 100%, 97.29411765%);
+}
+.wtm-CalendarMonth__day-event.WTM-Common--absenteeism {
+  background-color: #FDE8ED;
+  border-color: #C93233;
+}
+.ws-is-hover .wtm-CalendarMonth__day-event.WTM-Common--absenteeism:hover {
+  background-color: hsl(345.71428571, 84%, 97.09803922%);
+}
+.wtm-CalendarMonth__day-event.WTM-Common--outage {
+  background-color: #FEF2E6;
+  border-color: #D27C27;
+}
+.ws-is-hover .wtm-CalendarMonth__day-event.WTM-Common--outage:hover {
+  background-color: hsl(30, 92.30769231%, 96.90196078%);
+}
+.wtm-CalendarMonth__day-info {
+  overflow: hidden;
+  position: absolute;
+  right: 0;
+  bottom: 2px;
+  padding: 0 3px;
+  font-size: 12px;
+  display: flex;
+  align-items: center;
+  background-color: inherit;
+}
+.wtm-CalendarMonth__day-periodicEventMarker {
+  color: #619ee4;
+}
+.wtm-CalendarMonth__day-tz {
+  color: var(--unaccented_text-color);
+  margin-right: 2px;
+}
+.wtm-CalendarMonth__day-more {
+  position: absolute;
+  bottom: 1px;
+  right: 8px;
+  height: 18px;
+  width: 63px;
+  color: var(--link_text-color);
+  cursor: pointer;
+  font-size: 12px;
+  background-color: var(--background-color);
+  border-radius: 10px 10px 0 0;
+  padding: 2px 0;
+}
+.ws-is-hover .wtm-CalendarMonth__day-more:hover {
+  text-decoration: underline;
+}
+.wtm-CalendarMonth__day-more-shadow {
+  display: block;
+  width: 100%;
+  background: linear-gradient(0deg, #ffffff, rgba(255, 255, 255, 0));
+  height: 8px;
+  margin-bottom: -8px;
+  position: relative;
+  z-index: 2;
+  top: calc(100% - 8px);
+}
+.wtm-CalendarMonth__fullDay-event {
+  visibility: hidden;
+  text-align: center;
+  white-space: nowrap;
+  padding-right: 0.5rem;
+}
+.wtm-CalendarMonth__joinedCalendars {
+  position: absolute;
+  right: 0;
+  top: 0;
+  display: flex;
+  flex-direction: row;
+}
+.wtm-CalendarMonth__joinedCalendars--item {
+  width: 4px;
+  height: 4px;
+  margin-left: 1px;
+}
+.wtm-CalendarMonth__emptyMonth {
+  min-height: calc(100vh - 145px);
+  border-top: solid 1px #cecece;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.wtm-CalendarMonth__emptyMonth_header {
+  font-size: 4em;
+}
+/*# sourceMappingURL=_MonthCore.css.map */

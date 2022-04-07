@@ -1,0 +1,58 @@
+<div on:click="_onEventClick(event)"
+     on:mousedown="_onEventMouseDown(event)"
+     class="wtm-CalendarMonth__day-event {{ event.className + event.eventColorClass }}
+                    {{ event.isFullDayEvent ? 'wtm-CalendarMonth__fullDay-event' : '' }}
+                    {{ event.isFullDayEvent && fullDayEventStackWidth ? 'controls-DragNDrop__notDraggable' : '' }}
+                    {{ !event.isPaid ? 'wtm-CalendarMonth__day-event__notInWorkflow' : '' }}"
+     title="{{ event.isFullDayEvent ? event.fulldayEventTooltip : event.tooltip }}"
+     start-time="{{ event.dateStartShort }}"
+     style="{{ event.isFullDayEvent ? ( fullDayEventLength > 1 ?
+                     'left: ' + fullDayEventStacktitleShift + '%; width: ' + fullDayEventStackWidth + '%;' :
+                     'width: ' + '100%; text-align: left; left: 0;' ) }}">
+<div if="{{ event.isFullDayEvent && fullDayEventStackWidth}}"
+     class="wtm-CalendarMonth__day-event_document-fullDay {{ fullDayEventLength > 1 ? 'wtm-CalendarMonth__day-event_document-stacked'}}">
+                    <span class="wtm-CalendarMonth__day-event_document-text"
+                          on:mouseover="_onDocumentTitleMouseOver(event.workId)"
+                          on:mouseout="_onDocumentTitleMouseOut()">
+                        {{ event.description ? event.description + ' ' : '' }}
+                        {{ event.regulationName }}
+                        {{ event.text }}
+                        {{ fullDayEventLength > 1 ? event.durationCaption : '' }}
+                    </span>
+</div>
+<ws:if data="{{ event.DataObject.Colors.length > 1 }}">
+    <div class="wtm-CalendarMonth__joinedCalendars">
+        <ws:for data="color in event.DataObject.Colors">
+            <span class="wtm-CalendarMonth__joinedCalendars--item" style="background-color: {{ event.getMarkerColor(color) }};"></span>
+        </ws:for>
+    </div>
+</ws:if>
+<ws:if data="{{ event.description && !event.isFullDayEvent }}">
+    {{ event.description + ' ' }}
+</ws:if>
+<ws:if data="{{ event.regulationName.length && !event.isFullDayEvent  }}">
+                    <span on:click="_onDocumentClick(event)"
+                          class="wtm-CalendarMonth__day-event_type{{ !event.isPaid ? '__notInWorkflow' : '' }}">
+                        {{ event.regulationName }}
+                    </span>
+</ws:if>
+<ws:if data="{{ !event.isFullDayEvent && event.text.length }}">
+    {{ ' ' + event.text }}
+</ws:if>
+
+<ws:if data="{{event.isNeedInfo}}">
+    <div class="wtm-CalendarMonth__day-info">
+            <span class="wtm-CalendarMonth__day-tz"
+                  if="{{ _options.event.timeZoneOffsetStr !== '+0' }}"
+                  title="{[Часовой пояс]} {[от Вас]} {{ _options.event.timeZoneOffsetStr }}"
+                  data-value="{{ _options.event.timeZoneOffsetStr }}">
+                 {{ _options.event.timeZoneOffsetStr }}
+            </span>
+        <ws:for data="item in _options.event.footerItemsArray">
+            <div class="{{ item.className }}"
+                 style="{{ item.style }}"
+                 title="{{ rk(item.title) }}">{{item.content}}</div>
+        </ws:for>
+    </div>
+</ws:if>
+</div>

@@ -1,0 +1,12 @@
+<div class="WTM-StatsBar">
+    <ws:for data="index, item in _items">
+        <div class="WTM-StatsBar_item"
+            on:click="_toggleCaption(index)">
+            <div class="WTM-StatsBar_item_button">
+                <div class="controls-icon_size-s icon-{{item.icon}} WTM-StatsBar_item_icon WTM-StatsBar_item_icon_color_{{item.colorClass}}"></div>
+            </div>
+            <span class="WTM-StatsBar_item_caption {{_expandedCaptionItem === index ? 'WTM-StatsBar_item_caption-expanded'}}">{{item.name}}</span>
+            {{item.count}}
+        </div>
+    </ws:for>
+</div>

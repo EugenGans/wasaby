@@ -1,0 +1,33 @@
+<div class="WTM-Month-ItemWrapper">
+    <ws:if data="{{ date.getTime() === position.getTime() || extData }}">
+        <ws:partial
+            attr:class="wtm-CalendarMonth__month"
+            headerTemplate="{{_options.headerTemplate}}"
+            date="{{date}}"
+            extData="{{extData}}"
+            _options="{{_options}}"
+            dateId="{{dateId}}"
+            template="Controls/calendar:MonthListMonthTemplate">
+            <ws:bodyTemplate>
+                <Controls.calendar:MonthView
+                    showWeekdays="{{false}}"
+                    attr:class="wtm-CalendarMonth__month"
+                    newMode="{{true}}"
+                    daysData="{{bodyTemplate.extData}}"
+                    month="{{bodyTemplate.date}}">
+                    <ws:dayTemplate>
+                        <ws:partial
+                            template="wml!CoreUserCalendar/_Month/Templates/Day"
+                            highlightDocumentId="{{ highlightDocumentId }}"/>
+                    </ws:dayTemplate>
+                </Controls.calendar:MonthView>
+            </ws:bodyTemplate>
+        </ws:partial>
+    </ws:if>
+    <ws:else>
+        <div class="wtm-CalendarMonth__emptyMonth"
+             style="background-image: repeating-linear-gradient(transparent 0, transparent calc({{ monthWeekHeight(date) }}% - 1px), #cecece calc({{  monthWeekHeight(date)}}% - 1px), #cecece {{ monthWeekHeight(date)  }}%, transparent {{ monthWeekHeight(date) }}%),
+             repeating-linear-gradient(90deg, transparent 0, transparent calc(14.286% - 1px), #cecece calc(14.286% - 1px), #cecece 14.286%, transparent 14.286%);">
+        </div>
+    </ws:else>
+</div>

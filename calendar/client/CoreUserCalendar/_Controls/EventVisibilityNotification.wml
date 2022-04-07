@@ -1,0 +1,16 @@
+<ws:partial template="Controls/popupTemplate:Notification" style="secondary">
+   <ws:bodyContentTemplate>
+      <div class="WTM-EventVisibilityNotification__body">
+         <div>{[Событие создано в календаре, который отключен]}</div>
+         <Controls.buttons:Button
+                 name="CalendarsButton"
+                 tabindex="0"
+                 viewMode="link"
+                 fontColorStyle="link"
+                 fontSize="l"
+                 caption="{[Показать календарь]}"
+                 attr:class="WTM-EventVisibilityNotification__button"
+                 on:click="_onClick()"/>
+      </div>
+   </ws:bodyContentTemplate>
+</ws:partial>

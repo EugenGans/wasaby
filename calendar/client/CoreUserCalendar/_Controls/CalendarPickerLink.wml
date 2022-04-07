@@ -1,0 +1,30 @@
+<ws:if data="{{ !_isClientAuth }}">
+<div>
+    <Controls.buttons:Button
+        name="OpenCalendarPicker"
+        caption="{{ _caption }}"
+        buttonStyle="{{_options.style}}"
+        fontColorStyle="{{_options.fontColorStyle}}"
+        theme="default"
+        fontSize="{{_options.fontSize}}"
+        viewMode="{{_options.viewMode}}"
+        attr:class="WTM-CalendarPickerLink"
+        attr:data-qa="WTM-CalendarPickerLink"
+        tooltip="{{ _caption }}"
+        on:click="_openCalendarPicker()"/>
+    <CoreUserCalendar._Controls.EventCalendarMonitor
+        on:listChanged="_loadData()"/>
+    <Controls.popup:Sticky
+        name="sticky"
+        on:result="_onResult()"
+        on:close="_onDialogClose()"/>
+    <Controls.dataSource:error.Container
+        name="errorContainer"
+        viewConfig="{{_errorViewConfig}}">
+        <invisible-node/>
+    </Controls.dataSource:error.Container>
+</div>
+</ws:if>
+<ws:else>
+<invisible-node/>
+</ws:else>

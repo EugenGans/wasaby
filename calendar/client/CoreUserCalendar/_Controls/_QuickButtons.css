@@ -1,0 +1,22 @@
+.controls-icon_style-wtm-custom {
+  color: var(--secondary_color);
+}
+.controls-icon_style-wtm-custom.icon-Vacation {
+  color: #328502;
+}
+.controls-icon_style-wtm-custom.icon-SelfVacation {
+  color: #763DA4;
+}
+.controls-icon_style-wtm-custom.icon-Sick {
+  color: #555BB2;
+}
+.controls-icon_style-wtm-custom.icon-statusDeparted {
+  color: #984128;
+}
+.WTM-QuickButtons {
+  display: flex;
+}
+.WTM-QuickButtons__Button {
+  margin-left: 12px;
+}
+/*# sourceMappingURL=_QuickButtons.css.map */

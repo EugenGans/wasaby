@@ -1,0 +1,1 @@
+<span on:click="_monthPositionChangedHandler(date)" class="wtm-CalendarMonth__month-head_title">{{ formatter(date) }}</span>
