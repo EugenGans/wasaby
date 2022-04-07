@@ -2,7 +2,6 @@
  * компонент для мониторинга серверных событий в календарях
  * @class CoreUserCalendar.controls:CalendarListMonitor
  * @extends Control
- * @author Бирюков Виталий Валерьевич
  * @control
  * @public
  */

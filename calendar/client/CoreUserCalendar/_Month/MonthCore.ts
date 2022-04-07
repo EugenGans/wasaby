@@ -38,7 +38,6 @@ const DND_HINT_TEXT_ATTRIBUTE = 'data-drag-type';
  * Компонент сетки месяца календаря пользователя
  * @class MonthCore
  * @extends Control
- * @author Gilevich PM
  */
 export default class MonthCore extends Control<IOptions, ILegends> {
     protected _template: TemplateFunction = wmlMonthCore;

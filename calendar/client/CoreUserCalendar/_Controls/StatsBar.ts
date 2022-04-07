@@ -32,7 +32,6 @@ const ALLOWED_TYPES = [
 
 /**
  * Компонент статистики событий за год
- * @author Birukov VV
  */
 export default class StatsBar extends Control<IStatsBarOptions> {
     protected _template: TemplateFunction = template;

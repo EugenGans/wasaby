@@ -57,7 +57,6 @@ export type ILegends = Record<string, ILegend>;
  * Модель данных для сетки месяца календаря пользователя
  * @class MonthModel
  * @extends Control
- * @author Gilevich PM
  */
 class MonthModel {
     private _daysArray: IDayItem[] = [];

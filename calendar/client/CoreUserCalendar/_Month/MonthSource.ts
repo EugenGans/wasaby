@@ -78,7 +78,6 @@ function _prepareModelDataToSource(monthEqual: boolean, items: object[]): DataSe
  * Источник данных для сетки месяца календаря пользователя
  * @class MonthListSource
  * @extends Memory
- * @author Gilevich PM
  */
 class MonthListSource extends Memory {
     private readonly _calendarUUID: string;

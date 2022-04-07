@@ -6,7 +6,6 @@
  * ...и поставляет этот список в EventCalendarMonitor через Store
  * @class CoreUserCalendar.controls:CalendarPickerLink
  * @extends Control
- * @author Бирюков Виталий Валерьевич
  * @control
  * @public
  */
